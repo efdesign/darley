@@ -1,0 +1,147 @@
+﻿/*
+ * Proprietary Evaluation Notice
+ * Author: enrico.furlan
+ * Email: enrico.furlan@gmail.com
+ * License: Proprietary Evaluation License (see LICENSE-EVALUATION.md)
+ */
+
+:root {
+  --gap: 4px;
+  --background-color: #202020;
+  --darley-background: #07263a;
+  --darley-accent: #126fb5;
+  --darley-red: #cf2e2e;
+  --background-call: #12b543a1;
+  --background-put: #cf2e2ea1;
+  --border-color: #443d3d;
+  --text-color: #ebebeb;
+  --text-body: rgba(255, 255, 255, 0.8);
+  --instrument-highlight: #ebdc15de;
+  
+
+  /* darley colors from website */
+  /*
+  --e-global-color-primary: #F1F1F1;
+  --e-global-color-secondary: #1D1D1F;
+  --e-global-color-text: #126FB5;
+  --e-global-color-accent: #07263A;
+  --e-global-color-4b754a9: #1D1D1F80;
+  --e-global-color-1cfb8d5: #F1F1F180;        
+  */
+
+  --component-internal-padding: 2px;
+  --component-border-radius: 10px;
+  --component-font-size: 10px;
+  --component-line-height: 10px;
+  /* Darley uses gotham on the website for display and and poppins for body copy, we might resort to system fonts for faster rendering and lower load times*/
+  --font-family: "Poppins", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  /* this is a bit of a hack, hides elements based on expiry*/
+  --expiry: "";
+}
+
+/* TODO add proper stylesheet */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family);
+  font-size: 12px;
+  line-height: 1.672;
+  gap: var(--gap);
+  color: var(--text-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: #040f1c;
+  background-size: 40px 40px;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.024) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.024) 1px, transparent 1px);
+
+  padding: 20px;
+
+  .app {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #app-logo {
+    display: block;
+    flex-wrap: wrap;
+  }
+
+  #app-title {
+    margin: 20px 0;
+    font-size: 20px;
+  }
+
+  .app-header {
+    display: flex;
+    flex-direction: column;
+
+    
+    vertical-align: middle;
+
+    
+
+    .put {
+      background-color: var(--background-put);
+    }
+
+    .call {
+      background-color: var(--background-call);
+    }
+
+    div {
+      display: flex;
+      padding: var(--component-internal-padding);
+      gap: var(--component-internal-padding);
+      vertical-align: middle;
+
+      span {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .highlighted-instruments {
+    max-width: 100%;
+    display: flex;
+    gap: 0px;
+
+    table {
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      text-align: right;
+      padding: 0px var(--gap);
+      min-width: 70px;
+    }
+
+    /* trick to hide elements via css, expiry var is handled via js */
+    data[expiry]:not([expiry="var(--expiry)"]) {
+      display: none;
+    }
+
+    .highlighted-instruments__instrument--put {
+      background-color: var(--background-put);
+    }
+
+    .highlighted-instruments__instrument--call {
+      background-color: var(--background-call);
+    }
+
+    .special-instrument {
+      outline: 2px solid var(--instrument-highlight);
+    }
+    
+    #table-call {
+      .strike-price{ display: none;}
+    }
+    .strike-price{background-color: #040f1c; text-align: center;}
+  }
+}
+

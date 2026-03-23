@@ -1,0 +1,196 @@
+<!doctype html>
+<!--
+  Proprietary Evaluation Notice
+  Author: enrico.furlan
+  Email: enrico.furlan@gmail.com
+  License: Proprietary Evaluation License (see LICENSE-EVALUATION.md)
+-->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Darley Options Viewer v3</title>
+    <meta name="description" content="Standalone v3 implementation of the Binance options overview." />
+    <link rel="stylesheet" href="./styles/app.css" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet" />
+    <script type="module" src="./app/main.js"></script>
+</head>
+
+<body>
+    <div class="page-shell">
+        <header class="topbar">
+            <div class="brand-mark">
+                <img class="brand-mark__logo"
+                    src="https://www.darleytechnologies.com/wp-content/uploads/2026/01/White-NO-BG-Horiztonal-300x90.png"
+                    width="150" height="45" alt="Darley Technologies logo" />
+            </div>
+
+            <div class="topbar__actions">
+                <div class="mode-switch" role="group" aria-label="Data source switch">
+                    <button id="mode-live-button" class="mode-switch__button" type="button" data-mode="live">
+                        Live Data
+                    </button>
+                    <button id="mode-mock-button" class="mode-switch__button" type="button" data-mode="mock">
+                        Mock Replay
+                    </button>
+                </div>
+                <button id="snapshot-toggle-button" class="mode-switch__button" type="button" aria-pressed="false">
+                    Snapshot: Off
+                </button>
+            </div>
+        </header>
+
+        <!-- Controls bar: underlying + expiry selectors -->
+        <div class="controls-bar">
+            <div class="control-field">
+                <label class="control-field__label" for="underlying-select">Underlying</label>
+                <select id="underlying-select" class="control-select">
+                    <option value="BTCUSDT">BTCUSDT</option>
+                </select>
+            </div>
+            <div class="control-field">
+                <label class="control-field__label" for="expiry-select">Expiry</label>
+                <select id="expiry-select" class="control-select">
+                    <option value="">Loading…</option>
+                </select>
+            </div>
+        </div>
+
+        <main class="dashboard">
+            <section class="summary-grid">
+                <article class="summary-card">
+                    <span class="summary-card__label">Index Price</span>
+                    <strong class="summary-card__value" id="summary-index-price">-</strong>
+                </article>
+                <article class="summary-card">
+                    <span class="summary-card__label">Underlying</span>
+                    <strong class="summary-card__value" id="summary-underlying">-</strong>
+                </article>
+                <article class="summary-card">
+                    <span class="summary-card__label">Target Expiry</span>
+                    <strong class="summary-card__value" id="summary-expiry">-</strong>
+                </article>
+            </section>
+
+            <section class="selection-grid">
+                <article class="selection-card selection-card--call" id="selected-call-card">
+                    <header class="selection-card__header">
+                        <strong id="selected-call-symbol">-</strong>
+                        <span class="selection-card__pill">Call</span>
+                    </header>
+                    <dl class="selection-card__details">
+                        <div>
+                            <dt>Strike</dt>
+                            <dd id="selected-call-strike">-</dd>
+                        </div>
+                        <div>
+                            <dt>Expiry</dt>
+                            <dd id="selected-call-expiry">-</dd>
+                        </div>
+                        <div>
+                            <dt>Best Bid</dt>
+                            <dd id="selected-call-buy">-</dd>
+                        </div>
+                        <div>
+                            <dt>Best Ask</dt>
+                            <dd id="selected-call-sell">-</dd>
+                        </div>
+                    </dl>
+                </article>
+
+                <article class="selection-card selection-card--put" id="selected-put-card">
+                    <header class="selection-card__header">
+                        <strong id="selected-put-symbol">-</strong>
+                        <span class="selection-card__pill">Put</span>
+                    </header>
+                    <dl class="selection-card__details">
+                        <div>
+                            <dt>Strike</dt>
+                            <dd id="selected-put-strike">-</dd>
+                        </div>
+                        <div>
+                            <dt>Expiry</dt>
+                            <dd id="selected-put-expiry">-</dd>
+                        </div>
+                        <div>
+                            <dt>Best Bid</dt>
+                            <dd id="selected-put-buy">-</dd>
+                        </div>
+                        <div>
+                            <dt>Best Ask</dt>
+                            <dd id="selected-put-sell">-</dd>
+                        </div>
+                    </dl>
+                </article>
+            </section>
+
+            <section class="message-bar" id="message-bar" hidden></section>
+
+            <section class="tables-grid">
+                <article class="table-card table-card--calls">
+                    <header class="table-card__header">
+                        <h2>Calls</h2>
+                        <span id="calls-count">0 rows</span>
+                    </header>
+                    <div class="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Symbol</th>
+                                    <th>Strike</th>
+                                    <th>Bid</th>
+                                    <th>Bid Size</th>
+                                    <th>Ask</th>
+                                    <th>Ask Size</th>
+                                </tr>
+                            </thead>
+                            <tbody id="calls-table-body"></tbody>
+                        </table>
+                    </div>
+                </article>
+
+                <article class="table-card table-card--puts">
+                    <header class="table-card__header">
+                        <h2>Puts</h2>
+                        <span id="puts-count">0 rows</span>
+                    </header>
+                    <div class="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Symbol</th>
+                                    <th>Strike</th>
+                                    <th>Bid</th>
+                                    <th>Bid Size</th>
+                                    <th>Ask</th>
+                                    <th>Ask Size</th>
+                                </tr>
+                            </thead>
+                            <tbody id="puts-table-body"></tbody>
+                        </table>
+                    </div>
+                </article>
+            </section>
+
+            <section class="status-bottom" id="status-panel">
+                <div class="status-chip">
+                    <span class="status-chip__label">Mode</span>
+                    <strong id="status-mode">Loading</strong>
+                </div>
+                <div class="status-chip">
+                    <span class="status-chip__label">Connection</span>
+                    <strong id="status-connection">Idle</strong>
+                </div>
+                <div class="status-chip">
+                    <span class="status-chip__label">State</span>
+                    <strong id="status-load">Booting</strong>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+
+</html>

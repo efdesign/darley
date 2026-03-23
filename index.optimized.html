@@ -1,0 +1,168 @@
+<!doctype html>
+<!--
+  Proprietary Evaluation Notice
+  Author: enrico.furlan
+  Email: enrico.furlan@gmail.com
+  License: Proprietary Evaluation License (see LICENSE-EVALUATION.md)
+-->
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <meta name="description" content="A simple app to test Binance options data" />
+
+  <link rel="stylesheet" href="style.optimized.css">
+  <link rel="modulepreload" href="app.optimized.js">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Gotham:wght@600;700;800&family=Poppins:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <script type="module" src="app.optimized.js"></script>
+</head>
+
+<body>
+  <header>
+    <img src="https://www.darleytechnologies.com/wp-content/uploads/2026/01/White-NO-BG-Horiztonal-300x90.png"
+      width="150" height="45" alt="Darley Technologies logo" id="app-logo" />
+    <h1 id="app-title">Binance options test app </h1>
+  </header>
+  <main class="app">
+
+
+
+    <header class="app-header">
+      <div aria-label="Index price"><span id="index-price">loading... </span></div>
+      <div aria-label="Underlying"><span id="underlying">loading... </span></div>
+      <div aria-label="Expiry date">
+        <span id="expiry-date">loading... </span>
+      </div>
+
+
+      <div class="instrument call">
+        Selected Call:
+        <span id="selected-call">
+          <span class="best-buy-price">loading... </span>
+          <span class="best-buy-quantity">loading... </span>
+          <span class="strike-price">loading... </span>
+          <span class="best-sell-price">loading... </span>
+          <span class="best-sell-quantity">loading... </span>
+        </span>
+      </div>
+      <div class="instrument put">
+        Selected Put:
+        <div id="selected-put">
+          <span class="best-buy-price">loading... </span>
+          <span class="best-buy-quantity">loading... </span>
+          <span class="strike-price">loading... </span>
+          <span class="best-sell-price">loading... </span>
+          <span class="best-sell-quantity">loading... </span>
+          </span>
+        </div>
+      </div>
+
+
+
+      <article class="highlighted-instruments">
+        <table id="table-call">
+          <colgroup>
+            <col class="col-price" />
+            <col class="col-qty" />
+            <col class="col-price" />
+            <col class="col-qty" />
+            <col class="col-strike" />
+            <col class="col-expiry" />
+          </colgroup>
+          <tr class="highlighted-instruments__instrument highlighted-instruments__instrument--call-header">
+            <th class="instrument__field best-buy-price">Price</th>
+            <th class="instrument__field best-buy-quantity">Buy Quantity</th>
+
+            <th class="instrument__field best-sell-price">Sell</th>
+            <th class="instrument__field best-sell-quantity">Sell Quantity</th>
+            <th class="instrument__field strike-price">Strike</th>
+            <th class="instrument__field expiry">Expiry</th>
+          </tr>
+
+          <template id="call-row-template">
+            <tr id="BTC-260327-69000-C"
+              class="highlighted-instruments__instrument highlighted-instruments__instrument--call">
+              <td class="instrument__field best-buy-price">loading... </td>
+              <td class="instrument__field best-buy-quantity">loading... </td>
+
+              <td class="instrument__field best-sell-price">loading... </td>
+              <td class="instrument__field best-sell-quantity">loading... </td>
+              <td class="instrument__field strike-price">loading... </td>
+              <td class="instrument__field expiry">loading... </td>
+            </tr>
+          </template>
+
+          <tbody id="table-call-body"></tbody>
+        </table>
+
+        <!--table for the strike price -->
+        <table id="table-strike">
+          <colgroup>
+            <col class="col-strike" />
+          </colgroup>
+          <tr class="highlighted-instruments__instrument highlighted-instruments__instrument--strike-header">
+            <th class="instrument__field strike-price">Strike</th>
+          </tr>
+
+          <!-- <tr id="BTC-260327-69000"
+            class="highlighted-instruments__instrument highlighted-instruments__instrument--strike">
+            <td class="instrument__field strike-price">loading... </td>
+          </tr> -->
+        </table>
+
+
+        <table id="table-put">
+          <colgroup>
+            <col class="col-strike" />
+            <col class="col-price" />
+            <col class="col-qty" />
+            <col class="col-price" />
+            <col class="col-qty" />
+            <col class="col-expiry" />
+          </colgroup>
+
+          <tr class="highlighted-instruments__instrument highlighted-instruments__instrument--put-header">
+            <th class="instrument__field strike-price">Strike</th>
+            <th class="instrument__field best-buy-price">Price</th>
+            <th class="instrument__field best-buy-quantity">Buy Quantity</th>
+
+            <th class="instrument__field best-sell-price">Sell</th>
+            <th class="instrument__field best-sell-quantity">Sell Quantity</th>
+            <th class="instrument__field expiry">Expiry</th>
+          </tr>
+
+          <template id="put-row-template">
+            <tr id="BTC-260327-69000-P"
+              class="highlighted-instruments__instrument highlighted-instruments__instrument--put">
+              <td class="instrument__field strike-price">loading... </td>
+              <td class="instrument__field best-buy-price">loading... </td>
+              <td class="instrument__field best-buy-quantity">loading... </td>
+
+              <td class="instrument__field best-sell-price">loading... </td>
+              <td class="instrument__field best-sell-quantity">loading... </td>
+              <td class="instrument__field expiry">loading... </td>
+
+
+            </tr>
+          </template>
+
+          <tbody id="table-put-body"></tbody>
+
+        </table>
+
+      </article>
+    </header>
+  </main>
+
+  <footer>
+    <div id="config-debug"></div>
+    <div id="config-use-mocks"></div>
+
+  </footer>
+</body>
+
+</html>
