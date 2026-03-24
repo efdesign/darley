@@ -3,7 +3,7 @@
 <img align="right" src="./screenshot/v4.png" alt="V4" width="250" alt="v4 - react version">
 
 
-This repo contains four iterations of the same assignment.
+This repo contains three iterations of the same assignment.
 
 If you only open one version, open the final one: https://efdesign.github.io/darley/v4/dist/index.html
 
@@ -19,10 +19,6 @@ I kept the earlier versions on purpose, so it is easy to see both the manual bas
 - no LLM usage in phase 2 and phase 3
 - basic GUI and simple scripting, it proves the requirement path end-to-end
 
-**v2 (quick optimization pass)**: https://efdesign.github.io/darley/index.optimized.html
-- targeted cleanup and performance tweaks after the first manual pass
-- still raw in architecture and GUI
-
 **v3 (structured vanilla refactor)**: https://efdesign.github.io/darley/v3/dist/index.html
 - same core behavior, reorganized with better modularity and separation of concerns
 - still minimal in dependencies, with a more polished responsive UI
@@ -34,7 +30,7 @@ I kept the earlier versions on purpose, so it is easy to see both the manual bas
 - for strict dependency compliance, v1 (and largely v3) is the reference implementation
 - reflects the balance: brief compliance first with hand-coded foundations, then smarter iteration with machine-assisted refactoring and UI polish
 
-In short: v1 demonstrates the manual compliance baseline, v4 is the final deliverable, and v2/v3 show the progression between those two points.
+In short: v1 demonstrates the manual compliance baseline, v4 is the final deliverable, and v3 show the progression between those two points (there was a v2 but i skipped it as it diverged due to cleanup of v1)
 
 ## Author and Usage Notice
 

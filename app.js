@@ -453,7 +453,8 @@ const getOptionColor = (symbolData) => {
 // DATE HELPERS ---------------------------------------------------------------------
 
 
-
+// as I discovered late options there might be an issue with binance expiring options at a certain time
+// I'm not covering this case
 const getNextFriday = (timestamp = Date.now()) => {
   const date = new Date(timestamp);
   // returns the day of the week as a number (0-6) where 0 is Sunday and 6 is Saturday
@@ -483,20 +484,17 @@ const getNextFriday = (timestamp = Date.now()) => {
   return date;
 };
 
-/** extracts yymd from a given date so it's formatted like the expiry in the symbol and can be compared */
+/**
+ * extracts yymd from a given date
+ * so it's formatted like the expiry in the symbol
+ * and can be compared
+ **/
 const extractYYMMDD = (d) => {
   const year = d.getFullYear().toString().slice(-2);
   const month = (d.getMonth() + 1).toString().padStart(2, "0");
   const day = d.getDate().toString().padStart(2, "0");
   return `${year}${month}${day}`;
 };
-
-
-
-
-
-
-
 
 /**
  * PHASE 2 algoritm:
@@ -590,6 +588,8 @@ const findNearestOptions = (
 
   return {
     // data from requirement
+    // please note in this version i favor the call timestamp, this might not be accurate
+    // as i discovered tuestay EOD, v2 of this algorithm will address this issue.
     expiry:
       Number(selectedCall?.expiryDate) ||
       Number(selectedPut?.expiryDate) ||
@@ -614,11 +614,11 @@ const findNearestOptions = (
  * phase2 algorithm v2
  *
  * Compliance points:
- * 1) choose one expiry for both CALL and PUT
- * 2) use next Friday if available, otherwise nearest expiry
- * 3) filter by underlying + TRADING
- * 4) choose strike nearest to index within chosen expiry
- * 5) return the actual chosen expiry timestamp (not always next Friday)
+ * - choose one expiry for both CALL and PUT
+ * - use next Friday if available, otherwise nearest expiry
+ * - filter by underlying + TRADING
+ * - choose strike nearest to index within chosen expiry
+ * - return the actual chosen expiry timestamp (not always next Friday)
  */
 const findNearestOptionsV2 = (
   indexPrice,
@@ -744,15 +744,6 @@ const getMarkData = (wsMessage) => {
 
     const instrumentExpiryKey = parseExpiryKeyFromSymbol(instrumentSymbol);
     if (targetExpiryKey && instrumentExpiryKey !== targetExpiryKey) return;
-
-    // When known, only update the selected call/put rows.
-    // if (
-    //   (selectedCallSymbol || selectedPutSymbol) &&
-    //   instrumentSymbol !== selectedCallSymbol &&
-    //   instrumentSymbol !== selectedPutSymbol
-    // ) {
-    //   return;
-    // }
 
     // we will update the instrument based on symbol, it will just fail if it's not there.
     updateInstrumentDom(instrumentSymbol, {
