@@ -132,7 +132,23 @@ Here I went ahead and refined the frontend architecture and GUI based on the fac
 
 ## Part 4: Retrospective
 
-If I had more time, I would split the next steps into three horizons.
+### Code reviews (run at 19:00 on Tuesday 24th)
+
+At the end of the day I ran a senior-level code review against the brief for each with AI version.
+The full reports are here:
+
+- [report-v1.md](documentation/report-v1.md) — monolithic baseline (`app.js` / `index.html`)
+- [report-v3.md](documentation/report-v3.md) — modular vanilla ESM refactor
+- [report-v4.md](documentation/report-v4.md) — React 19 + Vite final version
+
+The most structurally important finding — and the one I would prioritise fixing first — is the **algorithm correctness gap in v1**: the actually-called function `findNearestOptions` selects the best CALL and the best PUT **independently**, so they can end up on different expiry dates, violating brief requirement #1 ("their expiry is on the next Friday"). A correct two-pass implementation (`findNearestOptionsV2`) exists in the same file but is **never called**. V3 and V4 both carry the correct shared-expiry algorithm (`selectNearestOptions` in `domain/selectNearestOptions.js`): the first pass fixes a single `chosenExpiryKey` for the whole expiry, then the second pass picks the ATM strike for each side within that expiry only. This is the implementation that fully satisfies the brief for all three versions that matter (v3 and v4 are correct).
+
+A close second priority, shared across all three versions, is the **`getNextFriday` time-of-day case**: on Friday after 08:00 UTC (when Binance options expire) the function returns today rather than the following Friday, causing the algorithm to target an already-expired expiry for the remainder of that day.
+
+If I had more time, I would fix the remaining open issues listed in each report before anything else.
+
+---
+
 
 ### If I had 1 week
 

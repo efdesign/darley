@@ -33,8 +33,8 @@
   --component-border-radius: 10px;
   --component-font-size: 10px;
   --component-line-height: 10px;
-  /* Darley uses gotham on the website for display and and poppins for body copy, we might resort to system fonts for faster rendering and lower load times*/
-  --font-family: "Poppins", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  /* System UI font stack — no external dependency, fastest load, good legibility */
+  --font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   /* this is a bit of a hack, hides elements based on expiry*/
   --expiry: "";
 }
@@ -121,10 +121,7 @@ body {
       min-width: 70px;
     }
 
-    /* trick to hide elements via css, expiry var is handled via js */
-    data[expiry]:not([expiry="var(--expiry)"]) {
-      display: none;
-    }
+  
 
     .highlighted-instruments__instrument--put {
       background-color: var(--background-put);
