@@ -80,7 +80,7 @@ LLMs are much faster for this kind of refinement, so I managed to produce two mo
   - 15:10 some did not return data. I needed to understand why, and it was probably the parameters
   - 15:20 found and installed the Postman Binance API collection from: https://github.com/binance/binance-api-postman to verify I was using the right APIs and configuring them correctly
   - 15:40 tested the APIs and saw that in Postman I had no CORS issues, but confirmed that CORS issues were there from Binance for certain APIs. I did not try to get credentials as they should be free
-  - 16:10 registered, wrote a script, and bypassed CORS issues with a [cloudflare proxy](worker.js). If I had a local backend this would be handled with a local proxy, or I would check the API documentation better. In any case this comes close to a "serverless" architecture
+  - 16:10 registered, wrote a script, and bypassed CORS issues with a [cloudflare proxy](cloudflare/worker.js). If I had a local backend this would be handled with a local proxy, or I would check the API documentation better. In any case this comes close to a "serverless" architecture
   - 16:20 formatted a bit this document
 
 16:20 - 16:30, break re-reading brief

@@ -214,11 +214,11 @@ button {
 }
 
 .selection-card--call {
-  background: linear-gradient(180deg, rgba(6, 10, 14, 1), var(--call-soft));
+  background: linear-gradient(0deg, rgba(6, 10, 14, 1), var(--call-soft));
 }
 
 .selection-card--put {
-  background: linear-gradient(180deg, rgba(6, 10, 14, 1), var(--put-soft));
+  background: linear-gradient(0deg, rgba(6, 10, 14, 1), var(--put-soft));
 }
 
 .selection-card__header {

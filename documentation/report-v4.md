@@ -148,10 +148,10 @@ Key additions over v3:
    `@vitejs/plugin-react` which pull in Rollup, esbuild, etc. at build time.
    These are dev-only, so they do not affect the runtime bundle.
 
-8. **Google Fonts CDN in `index.html`**: same issue as v3 — `fonts.googleapis.com`
-   loaded on every page load. Supply chain risk per the brief.
-
-   enrico: this is a coscious choice.
+8. ~~**Google Fonts CDN in `index.html`**~~ **FIXED**: Removed the
+   `fonts.googleapis.com` request. `src/styles/app.css` and `index.html` now
+   use the same `system-ui` / `Inter` / `-apple-system` / `Segoe UI` / `Roboto`
+   stack as v1 — no external dependency, zero extra network request.
 
 ### Algorithm / Correctness
 
@@ -227,4 +227,3 @@ Key additions over v3:
    them.
 6. Clarify `simulateLive` default in the UI (e.g. label the mode button "Live
    (Simulated)" and require an explicit opt-in for real data).
-7. Self-host fonts or drop the Google Fonts import.

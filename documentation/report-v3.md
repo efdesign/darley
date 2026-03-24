@@ -115,13 +115,10 @@ or the browser's native ESM import pipeline.
 
 ### Supply Chain
 
-8. **Google Fonts CDN in `index.html`**: The brief explicitly calls out supply-chain
-   attacks as a concern. Loading `Space Grotesk` and `IBM Plex Sans` from
-   `fonts.googleapis.com` on page load creates two external dependencies. System
-   font fallbacks (`"Segoe UI", sans-serif`) are already declared and would work.
-   Self-hosting the WOFF2 files is the safe alternative.
-
-   enrico: i accepted this risk, removed in v1 also makes metrics faster.
+8. ~~**Google Fonts CDN in `index.html`**~~ **FIXED**: Removed the
+   `fonts.googleapis.com` request. `styles/app.css` now uses the same
+   `system-ui` / `Inter` / `-apple-system` / `Segoe UI` / `Roboto` stack
+   as v1 — no external dependency, zero extra network request.
 
 ### Minor
 
@@ -179,4 +176,3 @@ or the browser's native ESM import pipeline.
 3. Add WS reconnection (exponential backoff via `setTimeout`).
 4. Chunk per-symbol WS subscriptions or cap at a safe URL length.
 5. Surface snapshot errors in the status view instead of swallowing them.
-6. Self-host fonts or drop the Google Fonts import.
