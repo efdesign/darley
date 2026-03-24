@@ -19,7 +19,7 @@ I kept the earlier versions on purpose, so it is easy to see both the manual bas
 - no LLM usage in phase 2 and phase 3
 - basic GUI and simple scripting, it proves the requirement path end-to-end
 
-**v3 (structured vanilla refactor)**: https://efdesign.github.io/darley/v3/dist/index.html
+**v3 (structured vanilla refactor)**: https://efdesign.github.io/darley/v3/index.html
 - same core behavior, reorganized with better modularity and separation of concerns
 - still minimal in dependencies, with a more polished responsive UI
 
