@@ -1,0 +1,24 @@
+/*
+ * Proprietary Evaluation Notice
+ * Author: enrico.furlan
+ * Email: enrico.furlan@gmail.com
+ * License: Proprietary Evaluation License (see LICENSE-EVALUATION.md)
+ */
+
+export function createHttpClient(proxyUrl) {
+    return {
+        async fetchJson(targetUrl, options = {}) {
+            const response = await fetch(
+                `${proxyUrl}?url=${encodeURIComponent(targetUrl)}`,
+                options,
+            );
+
+            if (!response.ok) {
+                throw new Error(`HTTP error ${response.status}`);
+            }
+
+            return response.json();
+        },
+    };
+}
+
