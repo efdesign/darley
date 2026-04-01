@@ -33,3 +33,4 @@ npm run preview
 - Kept the default visual layout on T, kept live as the default data source, and added an automatic fallback to live (sim) when live fails.
 - For the Part 2 algorithm, I kept the O(N) approach and did not add extra tradeoff notes beyond the implementation choice.
 - The T layout uses a mirrored option-chain table so the strike sits in the middle once, closer to a typical exchange chain view.
+- Refined the mobile T layout so the action switches move into the bottom status area, the chain rows use the available width more evenly, and the visible cells keep tighter padding to avoid overlap.

@@ -152,6 +152,11 @@ button {
   margin-top: 14px;
 }
 
+.status-bottom__actions {
+  display: none;
+  width: 100%;
+}
+
 .status-chip {
   display: flex;
   align-items: center;
@@ -600,23 +605,36 @@ tbody tr.is-updated {
   }
 
   .topbar {
-    gap: 8px;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 10px;
     margin-bottom: 8px;
+    border-radius: 0;
   }
 
   .topbar__actions {
-    margin-left: auto;
+    width: 100%;
+    margin-left: 0;
+    justify-content: center;
+  }
+
+  .topbar > .topbar__actions {
+    display: none;
   }
 
   .controls-bar {
     gap: 6px;
     padding: 6px 8px;
     margin-bottom: 8px;
+    border-radius: 0;
   }
 
   .brand-mark {
+    width: 100%;
+    justify-content: center;
     align-items: center;
-    flex-direction: row;
+    flex-direction: column;
     gap: 6px;
   }
 
@@ -632,6 +650,30 @@ tbody tr.is-updated {
     gap: 6px;
   }
 
+  .dashboard {
+    border-radius: 0;
+  }
+
+  .status-bottom {
+    border-radius: 0;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .status-bottom__actions {
+    display: flex;
+    justify-content: center;
+  }
+
+  .status-chip {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .selection-grid {
+    display: none;
+  }
+
   /* Compact summary card values */
   .summary-card__value {
     font-size: 13px;
@@ -645,13 +687,72 @@ tbody tr.is-updated {
   }
 
   .option-chain-table {
-    min-width: 980px;
+    min-width: 0;
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  .option-chain-table thead .option-chain-table__group-row {
+    display: none;
+  }
+
+  .option-chain-table thead tr:not(.option-chain-table__group-row),
+  .option-chain-table tbody tr {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .option-chain-table thead .chain-header--bid-size,
+  .option-chain-table thead .chain-header--ask-size,
+  .option-chain-table thead .chain-header--symbol,
+  .option-chain-table thead .chain-header--symbol-right,
+  .option-chain-table tbody .chain-cell--bid-size,
+  .option-chain-table tbody .chain-cell--ask-size,
+  .option-chain-table tbody .chain-cell--symbol,
+  .option-chain-table tbody .chain-cell--symbol-right {
+    display: none;
+  }
+
+  .option-chain-table .chain-header--strike,
+  .option-chain-table .chain-cell--strike {
+    background: #000;
+    color: #fff;
+    font-weight: 700;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+    width: auto;
+    min-width: 0;
+  }
+
+  .index-marker-cell {
+    grid-column: 1 / -1;
+  }
+
+  .option-chain-table tbody .chain-cell--quote {
+    line-height: 1.05;
+  }
+
+  .option-chain-table tbody .chain-cell--quote::after {
+    content: attr(data-mobile-size);
+    display: block;
+    margin-top: 2px;
+    color: var(--text-muted);
+    font-size: 8px;
+    letter-spacing: 0.04em;
+  }
+
+  .option-chain-table tbody .chain-cell--symbol {
+    width: auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   thead th,
   tbody td {
-    padding: 5px 6px;
+    padding: 3px 4px;
     font-size: 10px;
+    min-width: 0;
   }
 
   .table-card__header {
@@ -670,6 +771,14 @@ tbody tr.is-updated {
 @media (max-width: 480px) {
   body {
     font-size: 12px;
+  }
+
+  .topbar {
+    gap: 8px;
+  }
+
+  .topbar__actions {
+    gap: 8px;
   }
 
   .summary-card {
@@ -704,7 +813,9 @@ tbody tr.is-updated {
   }
 
   .option-chain-table {
-    min-width: 920px;
+    min-width: 0;
+    width: 100%;
+    table-layout: fixed;
   }
 
   .controls-bar {
@@ -727,10 +838,16 @@ tbody tr.is-updated {
     padding: 4px 24px 4px 8px;
   }
 
+  .option-chain-table thead tr:not(.option-chain-table__group-row),
+  .option-chain-table tbody tr {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
   thead th,
   tbody td {
-    padding: 4px 5px;
+    padding: 2px 3px;
     font-size: 9px;
+    min-width: 0;
   }
 
   .mode-switch {
@@ -745,6 +862,11 @@ tbody tr.is-updated {
 
   .brand-mark__logo {
     width: 100px;
+  }
+
+  .option-chain-table tbody .chain-cell--quote::after {
+    margin-top: 1px;
+    font-size: 7px;
   }
 }
 

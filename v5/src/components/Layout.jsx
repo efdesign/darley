@@ -104,6 +104,14 @@ export function Layout({
       </main>
 
       <StatusBar
+        effectiveMode={effectiveMode}
+        snapshotsEnabled={snapshotsEnabled}
+        layoutMode={layoutMode}
+        streamType={streamType}
+        onModeChange={onModeChange}
+        onLayoutChange={onLayoutChange}
+        onStreamTypeChange={onStreamTypeChange}
+        onToggleSnapshots={onToggleSnapshots}
         mode={viewModel.mode}
         connectionState={viewModel.connectionState}
         loadState={viewModel.loadState}

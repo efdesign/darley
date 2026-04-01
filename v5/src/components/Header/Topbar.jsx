@@ -5,10 +5,7 @@
  * License: Proprietary Evaluation License (see LICENSE-EVALUATION.md)
  */
 
-import { ModeSwitch } from "../ModeSwitch.jsx";
-import { LayoutModeSwitch } from "../LayoutModeSwitch.jsx";
-import { StreamModeSwitch } from "../StreamModeSwitch.jsx";
-import { SnapshotToggle } from "../SnapshotToggle.jsx";
+import { TopbarActions } from "./TopbarActions.jsx";
 
 export function Topbar({
   effectiveMode,
@@ -33,10 +30,16 @@ export function Topbar({
       </div>
 
       <div className="topbar__actions">
-        <ModeSwitch effectiveMode={effectiveMode} onModeChange={onModeChange} />
-        <LayoutModeSwitch layoutMode={layoutMode} onLayoutChange={onLayoutChange} />
-        <StreamModeSwitch streamType={streamType} onStreamTypeChange={onStreamTypeChange} />
-        <SnapshotToggle enabled={snapshotsEnabled} onToggle={onToggleSnapshots} />
+        <TopbarActions
+          effectiveMode={effectiveMode}
+          snapshotsEnabled={snapshotsEnabled}
+          layoutMode={layoutMode}
+          streamType={streamType}
+          onModeChange={onModeChange}
+          onLayoutChange={onLayoutChange}
+          onStreamTypeChange={onStreamTypeChange}
+          onToggleSnapshots={onToggleSnapshots}
+        />
       </div>
     </header>
   );
