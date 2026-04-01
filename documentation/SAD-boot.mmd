@@ -1,0 +1,24 @@
+flowchart TD
+    A[Browser opens index.html] --> B[main.jsx mounts App]
+    B --> C[App reads appConfig]
+    C --> D[useAppState creates state and actions]
+    C --> E[createHttpClient]
+    C --> F[createMarketDataClient]
+    C --> G[createSnapshotClient]
+    D --> H[App useEffect starts loadInitialOverview]
+    H --> I{load succeeds?}
+    I -->|yes| J[loadInitialOverview]
+    J --> K[marketDataClient.fetchOverview]
+    J --> L[selectNearestOptions]
+    J --> M[extractAvailableData]
+    L --> N[applyOverview callback]
+    M --> N
+    N --> O[setAvailability]
+    N --> P[replaceOverview]
+    N --> Q[setReady]
+    Q --> R[viewModel is computed]
+    R --> S[Layout renders shell and data]
+    I -->|no| T{live and real?}
+    T -->|yes| U[store fallback message]
+    U --> V[navigateToMode live-simulated]
+    T -->|no| W[actions.setError]

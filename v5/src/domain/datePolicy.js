@@ -6,17 +6,32 @@
  */
 
 export function getNextFridayDate(nowTimestamp = Date.now()) {
-    const date = new Date(nowTimestamp);
-    const day = date.getDay();
+    const current = new Date(nowTimestamp);
     const friday = 5;
-    const diff = (friday - day + 7) % 7;
-    date.setDate(date.getDate() + diff);
-    return date;
+    const expiryHourUtc = 8;
+    const target = new Date(Date.UTC(
+        current.getUTCFullYear(),
+        current.getUTCMonth(),
+        current.getUTCDate(),
+        expiryHourUtc,
+        0,
+        0,
+        0,
+    ));
+
+    const diff = (friday - current.getUTCDay() + 7) % 7;
+    target.setUTCDate(target.getUTCDate() + diff);
+
+    if (target.getTime() <= nowTimestamp) {
+        target.setUTCDate(target.getUTCDate() + 7);
+    }
+
+    return target;
 }
 
 export function toExpiryKey(date) {
-    const year = date.getFullYear().toString().slice(-2);
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
+    const year = date.getUTCFullYear().toString().slice(-2);
+    const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+    const day = String(date.getUTCDate()).padStart(2, "0");
     return `${year}${month}${day}`;
 }

@@ -36,8 +36,8 @@ function createExpiryDates(nowTimestamp) {
 
     for (let index = 0; index < 4; index += 1) {
         const date = new Date(nextFriday);
-        date.setDate(nextFriday.getDate() + index * 7);
-        date.setHours(8, 0, 0, 0);
+        date.setUTCDate(nextFriday.getUTCDate() + index * 7);
+        date.setUTCHours(8, 0, 0, 0);
         dates.push(date);
     }
 
@@ -140,7 +140,7 @@ function getOptionMidPrice(symbol, nowTimestamp) {
     const profile = getProfile(underlying);
     const indexPrice = Number(getSimulatedIndexData(underlying, nowTimestamp).indexPrice);
     const strikePrice = Number(parsed.strikeKey);
-    const expiryDate = new Date(
+    const expiryDate = new Date(Date.UTC(
         2000 + Number(parsed.expiryKey.slice(0, 2)),
         Number(parsed.expiryKey.slice(2, 4)) - 1,
         Number(parsed.expiryKey.slice(4, 6)),
@@ -148,7 +148,7 @@ function getOptionMidPrice(symbol, nowTimestamp) {
         0,
         0,
         0,
-    );
+    ));
     const daysToExpiry = Math.max((expiryDate.getTime() - nowTimestamp) / 86400000, 1);
     const timeValue = Math.max(indexPrice * 0.015 * (daysToExpiry / 7), profile.step * 0.08);
     const intrinsicValue = parsed.sideKey === "C"

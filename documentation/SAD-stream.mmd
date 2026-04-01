@@ -1,0 +1,24 @@
+flowchart TD
+    A[useOptionStream effect] --> B[createOptionStreamClient]
+    A --> C["snapshotClient.fetchQuotes(snapshotSymbols)"]
+    C --> D[selected-symbol warmup batch]
+    D --> E[useQuoteBatcher]
+    B --> F{mode}
+    F -->|mock| G[poll fixture JSON]
+    F -->|live-simulated| H[emit simulated payloads]
+    F -->|live| I[open Binance websocket]
+    G --> J[normalizeBookTickerMessage or normalizeMarkPriceMessage]
+    H --> J
+    I --> J
+    J --> E
+    E --> K[App.handleQuotes]
+    K --> L[actions.applyQuoteBatch]
+    L --> M[update instrumentMap and indexPrice]
+    M --> N[updatedSymbols flash]
+    N --> O[React rerender]
+    I --> P{socket error?}
+    P -->|yes| Q[handleStreamError]
+    Q --> R{live and real?}
+    R -->|yes| S[store fallback message]
+    S --> T[navigateToMode live-simulated]
+    R -->|no| U[actions.setError]

@@ -12,6 +12,7 @@ export function useOptionStream({
     mode,
     streamType,
     symbols,
+    snapshotSymbols,
     fixtureUrl,
     refreshMs,
     snapshotClient,
@@ -41,9 +42,9 @@ export function useOptionStream({
             simulateLive,
         });
 
-        if (snapshotClient && mode !== "mock") {
+        if (snapshotClient && mode !== "mock" && snapshotSymbols.length) {
             snapshotClient
-                .fetchQuotes(symbols)
+                .fetchQuotes(snapshotSymbols)
                 .then((quotes) => {
                     if (!isActive) return;
                     handleBatch(quotes);
@@ -79,6 +80,7 @@ export function useOptionStream({
         refreshMs,
         snapshotClient,
         simulateLive,
+        snapshotSymbols.join("|"),
         symbols.join("|"),
     ]);
 }

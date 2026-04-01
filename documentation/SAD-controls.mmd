@@ -1,0 +1,17 @@
+flowchart TD
+    A[User clicks a switch] --> B{control type}
+    B -->|mode| C[navigateToMode]
+    B -->|layout| D[navigateToLayout]
+    B -->|stream| E[navigateToStreamType]
+    B -->|snapshots| F[navigateToSnapshots]
+    C --> G[update search params]
+    D --> G
+    E --> G
+    F --> G
+    G --> H[full page reload]
+    H --> I[App boots with new appConfig]
+    I --> J[Layout chooses cards or T]
+    I --> K[TopbarActions in header]
+    I --> L[TopbarActions in status bar on mobile]
+    J --> M[desktop controls stay in Topbar]
+    J --> N[mobile controls move to StatusBar]

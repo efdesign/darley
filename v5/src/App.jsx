@@ -181,6 +181,20 @@ export function App() {
     return [...viewModel.callRows, ...viewModel.putRows].map((row) => row.symbol);
   }, [viewModel.callRows, viewModel.putRows]);
 
+  const snapshotSymbols = useMemo(() => {
+    const symbols = [];
+
+    if (viewModel.selectedCallSymbol) {
+      symbols.push(viewModel.selectedCallSymbol);
+    }
+
+    if (viewModel.selectedPutSymbol && viewModel.selectedPutSymbol !== viewModel.selectedCallSymbol) {
+      symbols.push(viewModel.selectedPutSymbol);
+    }
+
+    return symbols;
+  }, [viewModel.selectedCallSymbol, viewModel.selectedPutSymbol]);
+
   const handleStreamError = useCallback(
     (error) => {
       if (state.mode === "live" && !appConfig.simulateLive) {
@@ -198,6 +212,7 @@ export function App() {
     mode: state.mode,
     streamType: appConfig.streamType,
     symbols: streamSymbols,
+    snapshotSymbols,
     fixtureUrl: appConfig.mockMarkPriceUrl,
     refreshMs: appConfig.streamRefreshMs,
     snapshotClient,

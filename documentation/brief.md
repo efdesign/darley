@@ -57,7 +57,7 @@ So we'll need an algorithm that is **efficient and fast** to **determine the hig
 
 Let's visualize one expiry (note to self: date).
 
-• We'll be subscribing to a websocket (see [2]) and **filtering out all instruments that are not of the wanted expiry** (determined in the previous sep)
+• We'll be subscribing to a websocket (see [2]) and **filtering out all instruments that are not of the wanted expiry** (determined in the previous step)
 
 - The **UI should update** according to the websocket messages
 - The minimum that needs to be displayed is:
